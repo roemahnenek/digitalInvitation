@@ -1,0 +1,14 @@
+# Files to ignore during Vercel deployment
+node_modules
+.env*.local
+.git
+.DS_Store
+*.log
+coverage
+.cache
+sample/
+scripts/
+README.md
+DATABASE_GUIDE.md
+TEMPLATE_GUIDE.md
+QUICK_ADD_TEMPLATE.md
