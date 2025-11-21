@@ -1,46 +1,119 @@
 import dynamic from "next/dynamic";
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import Classic01 from "../templates/Classic01";
 import ElegantFloral from "../templates/ElegantFloral";
+import Wedding01 from "../templates/Wedding01";
+import RomanticFloral from "../templates/RomanticFloral";
+import LuxuryGold from "../templates/LuxuryGold";
 
-const Wedding01 = dynamic(() => import("../templates/Wedding01"), {
-  ssr: false,
-});
+// New component for the cover screen with customizable hero section
+function InvitationCover({ onOpen, guestName, data, heroConfig }) {
+  const config = heroConfig || {
+    background: "gradient",
+    gradientColors: "from-rose-50 via-white to-rose-100",
+    decorativeElements: [
+      {
+        icon: "❀",
+        position: "top-10 left-10",
+        size: "text-6xl",
+        color: "text-rose-200",
+        delay: "0s",
+      },
+      {
+        icon: "✿",
+        position: "top-20 right-16",
+        size: "text-5xl",
+        color: "text-rose-200",
+        delay: "0.5s",
+      },
+      {
+        icon: "❁",
+        position: "bottom-16 left-20",
+        size: "text-7xl",
+        color: "text-rose-200",
+        delay: "1s",
+      },
+      {
+        icon: "❀",
+        position: "bottom-24 right-10",
+        size: "text-6xl",
+        color: "text-rose-200",
+        delay: "1.5s",
+      },
+    ],
+    topIcon: "❁",
+    topIconColor: "text-rose-400",
+    title: "THE WEDDING OF",
+    titleColor: "text-rose-900",
+    nameColor: "text-rose-600",
+    dividerColor: "bg-rose-300",
+    dividerIcon: "❀",
+    dividerIconColor: "text-rose-400",
+    invitationText: "Dengan penuh sukacita, kami mengundang Anda",
+    invitationSubtext: "untuk berbagi kebahagiaan di hari istimewa kami",
+    invitationTextColor: "text-gray-600",
+    invitationSubtextColor: "text-gray-500",
+    buttonColor: "bg-rose-500 hover:bg-rose-600",
+    buttonGradient: "from-rose-600 to-pink-600",
+    guestCardBg: "bg-white/60",
+    guestCardBorder: "border-rose-200",
+    guestCardTextColor: "text-rose-800",
+    guestLabelColor: "text-rose-700",
+    bottomIcon: "❁",
+    bottomIconColor: "text-rose-400",
+  };
 
-// New component for the cover screen
-function InvitationCover({ onOpen, guestName, data }) {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden p-4 text-center bg-gradient-to-br from-rose-50 via-white to-rose-100">
+    <div
+      className={`min-h-screen flex flex-col items-center justify-center relative overflow-hidden p-4 text-center bg-gradient-to-br ${config.gradientColors}`}
+    >
       {/* Decorative Elements */}
-      <div className="absolute top-10 left-10 text-6xl text-rose-200 opacity-50 animate-pulse">❀</div>
-      <div className="absolute top-20 right-16 text-5xl text-rose-200 opacity-40 animate-pulse" style={{ animationDelay: '0.5s' }}>✿</div>
-      <div className="absolute bottom-16 left-20 text-7xl text-rose-200 opacity-30 animate-pulse" style={{ animationDelay: '1s' }}>❁</div>
-      <div className="absolute bottom-24 right-10 text-6xl text-rose-200 opacity-50 animate-pulse" style={{ animationDelay: '1.5s' }}>❀</div>
-      
+      {config.decorativeElements.map((elem, idx) => (
+        <div
+          key={idx}
+          className={`absolute ${elem.position} ${elem.size} ${elem.color} opacity-50 animate-pulse`}
+          style={{ animationDelay: elem.delay }}
+        >
+          {elem.icon}
+        </div>
+      ))}
+
       {/* Main Content */}
       <div className="relative z-10 max-w-2xl mx-auto">
         {/* Top Decoration */}
-        <div className="text-6xl text-rose-400 mb-6 animate-fade-in">
-          ❁
+        <div className={`text-6xl ${config.topIconColor} mb-6 animate-fade-in`}>
+          {config.topIcon}
         </div>
 
         {/* Title */}
-        <h1 className="text-3xl sm:text-4xl font-serif text-rose-900 mb-3 tracking-wide animate-fade-in" style={{ animationDelay: '0.2s' }}>
-          THE WEDDING OF
+        <h1
+          className={`text-3xl sm:text-4xl font-serif ${config.titleColor} mb-3 tracking-wide animate-fade-in`}
+          style={{ animationDelay: "0.2s" }}
+        >
+          {config.title}
         </h1>
-        
+
         {/* Names if available */}
         {data?.brideNickname && data?.groomNickname && (
-          <div className="mb-8 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-            <h2 className="text-5xl sm:text-6xl md:text-7xl font-script text-rose-600 mb-2">
+          <div
+            className="mb-8 animate-fade-in"
+            style={{ animationDelay: "0.4s" }}
+          >
+            <h2
+              className={`text-5xl sm:text-6xl md:text-7xl font-script ${config.nameColor} mb-2`}
+            >
               {data.brideNickname}
             </h2>
             <div className="flex items-center justify-center gap-4 my-4">
-              <div className="w-16 h-px bg-rose-300"></div>
-              <span className="text-3xl text-rose-400">❀</span>
-              <div className="w-16 h-px bg-rose-300"></div>
+              <div className={`w-16 h-px ${config.dividerColor}`}></div>
+              <span className={`text-3xl ${config.dividerIconColor}`}>
+                {config.dividerIcon}
+              </span>
+              <div className={`w-16 h-px ${config.dividerColor}`}></div>
             </div>
-            <h2 className="text-5xl sm:text-6xl md:text-7xl font-script text-rose-600">
+            <h2
+              className={`text-5xl sm:text-6xl md:text-7xl font-script ${config.nameColor}`}
+            >
               {data.groomNickname}
             </h2>
           </div>
@@ -48,38 +121,70 @@ function InvitationCover({ onOpen, guestName, data }) {
 
         {/* Guest Name */}
         {guestName && (
-          <div className="mb-8 mt-12 p-6 bg-white/60 backdrop-blur-sm rounded-2xl border-2 border-rose-200 shadow-lg animate-fade-in" style={{ animationDelay: '0.6s' }}>
-            <p className="text-sm text-rose-700 tracking-widest uppercase mb-2">Kepada Yth.</p>
-            <p className="text-2xl sm:text-3xl font-script text-rose-800">{guestName}</p>
+          <div
+            className={`mb-8 mt-12 p-6 ${config.guestCardBg} backdrop-blur-sm rounded-2xl border-2 ${config.guestCardBorder} shadow-lg animate-fade-in`}
+            style={{ animationDelay: "0.6s" }}
+          >
+            <p
+              className={`text-sm ${config.guestLabelColor} tracking-widest uppercase mb-2`}
+            >
+              Kepada Yth.
+            </p>
+            <p
+              className={`text-2xl sm:text-3xl font-script ${config.guestCardTextColor}`}
+            >
+              {guestName}
+            </p>
           </div>
         )}
 
         {/* Invitation Text */}
-        <p className="text-base sm:text-lg text-gray-600 mb-2 italic animate-fade-in" style={{ animationDelay: '0.8s' }}>
-          Dengan penuh sukacita, kami mengundang Anda
+        <p
+          className={`text-base sm:text-lg ${config.invitationTextColor} mb-2 italic animate-fade-in`}
+          style={{ animationDelay: "0.8s" }}
+        >
+          {config.invitationText}
         </p>
-        <p className="text-sm sm:text-base text-gray-500 mb-10 animate-fade-in" style={{ animationDelay: '0.9s' }}>
-          untuk berbagi kebahagiaan di hari istimewa kami
+        <p
+          className={`text-sm sm:text-base ${config.invitationSubtextColor} mb-10 animate-fade-in`}
+          style={{ animationDelay: "0.9s" }}
+        >
+          {config.invitationSubtext}
         </p>
 
         {/* Open Button */}
         <button
           onClick={onOpen}
-          className="group relative px-10 py-4 bg-rose-500 text-white rounded-full text-lg font-semibold hover:bg-rose-600 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 animate-fade-in overflow-hidden"
-          style={{ animationDelay: '1s' }}
+          className={`group relative px-10 py-4 ${config.buttonColor} text-white rounded-full text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 animate-fade-in overflow-hidden`}
+          style={{ animationDelay: "1s" }}
         >
           <span className="relative z-10 flex items-center gap-3">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76" />
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76"
+              />
             </svg>
             Buka Undangan
           </span>
-          <div className="absolute inset-0 bg-gradient-to-r from-rose-600 to-pink-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+          <div
+            className={`absolute inset-0 bg-gradient-to-r ${config.buttonGradient} transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300`}
+          ></div>
         </button>
 
         {/* Bottom Decoration */}
-        <div className="text-6xl text-rose-400 mt-10 animate-fade-in" style={{ animationDelay: '1.2s' }}>
-          ❁
+        <div
+          className={`text-6xl ${config.bottomIconColor} mt-10 animate-fade-in`}
+          style={{ animationDelay: "1.2s" }}
+        >
+          {config.bottomIcon}
         </div>
       </div>
 
@@ -106,8 +211,15 @@ export default function TemplateRenderer({ template_code, data, guestName }) {
     TemplateComponent = Classic01;
   } else if (template_code === "wedding-01") {
     TemplateComponent = Wedding01;
-  } else if (template_code === "elegant-floral") { // Template baru
+  } else if (
+    template_code === "elegant-floral" ||
+    template_code === "elegant-02"
+  ) {
     TemplateComponent = ElegantFloral;
+  } else if (template_code === "romantic-floral") {
+    TemplateComponent = RomanticFloral;
+  } else if (template_code === "luxury-gold") {
+    TemplateComponent = LuxuryGold;
   }
 
   if (!TemplateComponent) {
@@ -117,7 +229,12 @@ export default function TemplateRenderer({ template_code, data, guestName }) {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       {showCover ? (
-        <InvitationCover onOpen={handleOpenInvitation} guestName={guestName} data={data} />
+        <InvitationCover
+          onOpen={handleOpenInvitation}
+          guestName={guestName}
+          data={data}
+          heroConfig={TemplateComponent.heroSection}
+        />
       ) : (
         <TemplateComponent data={data} guestName={guestName} />
       )}
