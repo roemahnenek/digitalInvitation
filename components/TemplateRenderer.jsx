@@ -3,9 +3,13 @@ import React, { Suspense, useState, useEffect } from "react";
 import Classic01 from "../templates/Classic01";
 import ElegantFloral from "../templates/ElegantFloral";
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import Wedding01 from "../templates/Wedding01";
 import RomanticFloral from "../templates/RomanticFloral";
 import LuxuryGold from "../templates/LuxuryGold";
+=======
+import Elegant02 from "../templates/Elegant02";
+>>>>>>> Stashed changes
 =======
 import Elegant02 from "../templates/Elegant02";
 >>>>>>> Stashed changes
@@ -221,10 +225,15 @@ export default function TemplateRenderer({ template_code, data, guestName }) {
   ) {
     TemplateComponent = ElegantFloral;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   } else if (template_code === "romantic-floral") {
     TemplateComponent = RomanticFloral;
   } else if (template_code === "luxury-gold") {
     TemplateComponent = LuxuryGold;
+=======
+  } else if (template_code === "elegant-02") {
+    TemplateComponent = Elegant02;
+>>>>>>> Stashed changes
 =======
   } else if (template_code === "elegant-02") {
     TemplateComponent = Elegant02;
