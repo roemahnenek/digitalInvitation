@@ -2,9 +2,13 @@ import dynamic from "next/dynamic";
 import React, { Suspense, useState, useEffect } from "react";
 import Classic01 from "../templates/Classic01";
 import ElegantFloral from "../templates/ElegantFloral";
+<<<<<<< Updated upstream
 import Wedding01 from "../templates/Wedding01";
 import RomanticFloral from "../templates/RomanticFloral";
 import LuxuryGold from "../templates/LuxuryGold";
+=======
+import Elegant02 from "../templates/Elegant02";
+>>>>>>> Stashed changes
 
 // New component for the cover screen with customizable hero section
 function InvitationCover({ onOpen, guestName, data, heroConfig }) {
@@ -216,10 +220,15 @@ export default function TemplateRenderer({ template_code, data, guestName }) {
     template_code === "elegant-02"
   ) {
     TemplateComponent = ElegantFloral;
+<<<<<<< Updated upstream
   } else if (template_code === "romantic-floral") {
     TemplateComponent = RomanticFloral;
   } else if (template_code === "luxury-gold") {
     TemplateComponent = LuxuryGold;
+=======
+  } else if (template_code === "elegant-02") {
+    TemplateComponent = Elegant02;
+>>>>>>> Stashed changes
   }
 
   if (!TemplateComponent) {

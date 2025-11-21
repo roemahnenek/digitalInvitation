@@ -49,6 +49,20 @@ async function seedTemplates() {
         thumbnail: "/thumbnails/wedding-01.jpg",
         description: "Template modern dengan animasi dan komponen lengkap",
         isActive: true
+      },
+      {
+        name: "Elegant Floral",
+        slug: "elegant-floral",
+        thumbnail: "/thumbnails/elegant-floral.jpg",
+        description: "Template elegan dengan sentuhan floral yang indah",
+        isActive: true
+      },
+      {
+        name: "Elegant 02",
+        slug: "elegant-02",
+        thumbnail: "/thumbnails/elegant-02.jpg",
+        description: "Template mewah dengan musik, lace border, dan animasi smooth scroll",
+        isActive: true
       }
     ];
 
